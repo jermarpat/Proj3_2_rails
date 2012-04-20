@@ -1,6 +1,4 @@
 -- login.sql
-drop language if exists 'plpgsql';
-create language 'plpgsql';
 create or replace function getID(_user text, _pass text)
    returns integer as
    $func$

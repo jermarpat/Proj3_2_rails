@@ -1,5 +1,11 @@
 Proj3::Application.routes.draw do
   
+  get "results/index"
+
+  get "questions/index"
+
+  get "questions/survey"
+
   get "pages/login"
   match "pages/login" => "pages#login", :via => [:get, :post]
   match "pages/admin" => "pages#admin"
@@ -11,4 +17,8 @@ Proj3::Application.routes.draw do
   
   get "surveys/index"
   match "surveys/index" => "surveys#index"
+  
+  match "questions/survey" => "questions#survey"
+  match "questions/updateResults" => "questions#updateResults"
+  match "questions/createSurvey" => "questions#createSurvey"
 end
