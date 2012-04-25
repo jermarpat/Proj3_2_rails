@@ -19,14 +19,19 @@ class QuestionsController < ApplicationController
       conn.execute("select updateResult(" +
         r.to_s + "," + params[r.to_s] + ")")
     end
-  def createSurvey
+  end 
+  
+  def handleCreateSurvey
     q1 = params[:q_1]
     q2 = params[:q_2]
     q3 = params[:q_3]
     q4 = params[:q_4]
     q5 = params[:q_5]
-    @questions = Question.new(:q_1 => q1, :q_2 => q2, :q_3 => q3, :q_4 => q4, :q_5 => q5)
-    @questions.save
-  end
+    sname = params[:s_name]
+    #sname = "test"
+    #q3 = "test3"
+    conn = ActiveRecord::Base.connection
+    conn.execute("select addSurvey('" + sname + "','" + q1 + "','" + q2 + "','" + 
+      q3 + "','" + q4 + "','" + q5 + "')")
   end
 end

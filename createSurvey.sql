@@ -87,18 +87,40 @@ create or replace function updateResult(_qid integer, _val integer)
   $func$
   language 'plpgsql';
 
+create or replace function addSurvey(_sname text, _q1 text, 
+  _q2 text, _q3 text, _q4 text, _q5 text)
+
+returns boolean as
+  $func$
+    declare 
+      _sid integer; 
+    begin
+      insert into surveys (survey_name) values (_sname);
+      _sid := currval('survey_id_seq');
+      perform addQuestion(_sid,_q1);
+      perform addQuestion(_sid,_q2);
+      perform addQuestion(_sid,_q3);
+      perform addQuestion(_sid,_q4);
+      perform addQuestion(_sid,_q5);
+      return 't';
+    end;
+  $func$  
+  language 'plpgsql';
+
+select addSurvey('test','test1','test2','test3','test4','test5');
+
 insert into surveys (survey_name) values ('survey1');
 insert into surveys (survey_name) values ('survey2');
 
-select addQuestion(1,
-  'How would you rate the food at this campus?');
-select addQuestion(1,
-  'How would you rate the parking at this campus?');
-select addQuestion(1,
-  'How would you rate the security at this campus?');
-select addQuestion(1,
-  'How would you rate the education value at this campus?');
 select addQuestion(2,
+  'How would you rate the food at this campus?');
+select addQuestion(2,
+  'How would you rate the parking at this campus?');
+select addQuestion(2,
+  'How would you rate the security at this campus?');
+select addQuestion(2,
+  'How would you rate the education value at this campus?');
+select addQuestion(3,
   'How would you rate the education value at this campus?');
   
 select * from survey_questions_view where sid=1;

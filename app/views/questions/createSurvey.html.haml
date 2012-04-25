@@ -1,4 +1,11 @@
-%form{:method => "post", :action => "createSurvey"}
+%form{:method => "post", :action => "handleCreateSurvey"}
+  Survey Name:
+  %input{:type => "text", :name => "s_name"}
+  %br
+  %br
+  %input{:type => "hidden", :name => "dept", :value => cookies.signed[:dept]}
+  %input{:type => "hidden", :name => "division", :value => cookies.signed[:division]}
+  
   Question 1
   %input{:type => "text", :name => "q_1"}
   %br
@@ -16,3 +23,5 @@
   %br
   %br
   %input{:type => "submit", :value => "Submit"}
+
+ 
