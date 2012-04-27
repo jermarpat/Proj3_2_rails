@@ -23,4 +23,5 @@ Proj3::Application.routes.draw do
   match "questions/createSurvey" => "questions#createSurvey"
   match "questions/handleCreateSurvey" => "questions#handleCreateSurvey"
   match "questions/updateSurvey" => "questions#updateSurvey"
+  match "questions/chooseSurvey" => "questions#chooseSurvey"
 end

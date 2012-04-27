@@ -1,7 +1,19 @@
 # app/controllers/questions_controller.rb
 class QuestionsController < ApplicationController
   def survey
-    @questions = SurveyQuestions.find_all_by_sid(1)
+    @id = cookies.signed[:sid]
+    @questions = SurveyQuestions.find_all_by_sid(@id)
+  end
+  def chooseSurvey
+    sname = params[:s_name]
+    @survey = Survey.find_by_survey_name(sname)
+    if @survey != nil
+      @id = @survey.id
+      cookies.signed[:sid] = @id
+      redirect_to :controller => "questions", :action => "survey"
+    else
+      @id = 1
+    end
   end
   def updateResults
     @show = params
@@ -28,10 +40,9 @@ class QuestionsController < ApplicationController
     q4 = params[:q_4]
     q5 = params[:q_5]
     sname = params[:s_name]
-    #sname = "test"
-    #q3 = "test3"
     conn = ActiveRecord::Base.connection
     conn.execute("select addSurvey('" + sname + "','" + q1 + "','" + q2 + "','" + 
       q3 + "','" + q4 + "','" + q5 + "')")
+    redirect_to :controller => "questions", :action => "createSurvey"
   end
 end
